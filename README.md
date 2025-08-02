@@ -7,8 +7,8 @@ This project reads ambient light using an analog LDR (Light Dependent Resistor) 
 - STM32F303RE Nucleo board  
 - Breadboard  
 - LDR sensor  
-- 10kΩ resistor (pull-down)  
-- LED (any color)  
+- 10kΩ pull-down resistor 
+- LED 
 - 220Ω resistor (LED current limit)  
 - Jumper wires
 
@@ -68,7 +68,7 @@ HAL_ADC_Start(&hadc1);
 HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
 lux = HAL_ADC_GetValue(&hadc1);
 
-// LED logic with hysteresis band
+// LED logic with hysteresis
 if (!led_on && lux < 600)
 {
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET);  // Turn LED ON
@@ -97,10 +97,9 @@ HAL_UART_Transmit(&huart2, (uint8_t *)msg, strlen(msg), HAL_MAX_DELAY);
 
 ## 🧠 Skills Demonstrated
 
-- STM32 ADC configuration and polling
-- UART communication and formatted output
-- Analog circuit design for sensing
-- Software-level hysteresis for sensor noise
-- Clean peripheral initialization and GPIO control
+- STM32 ADC configuration
+- UART communicationt
+- Analog circuit design 
+- GPIO control
 
 ---
