@@ -1,6 +1,6 @@
 # 🌒 STM32 LDR Light Sensor with Hysteresis LED Control
 
-This project reads ambient light using an analog LDR (Light Dependent Resistor) sensor and controls an external LED based on light intensity. The system uses ADC1 on an STM32F303RE Nucleo board to continuously sample the light level and transmits the value over UART. When it's dark, the LED turns on. When it's bright, the LED turns off — with a built-in hysteresis band to prevent flickering.
+This project reads ambient light using an analog LDR (Light Dependent Resistor) sensor and controls an external LED based on light intensity. The system uses ADC1 on an STM32F303RE Nucleo board to continuously sample the light level and transmits the value over UART. When it's dark, the LED turns on. When it's bright, the LED turns off, with a built-in hysteresis band to prevent flickering.
 
 ## 🔧 Hardware
 
