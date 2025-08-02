@@ -151,6 +151,6 @@ void Error_Handler(void)
   */
 void assert_failed(uint8_t *file, uint32_t line)
 {
-  // Optional: Add debug print here
+ 
 }
-#endif /* USE_FULL_ASSERT */
+#endif 
