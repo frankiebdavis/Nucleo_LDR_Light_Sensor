@@ -89,7 +89,7 @@ HAL_UART_Transmit(&huart2, (uint8_t *)msg, strlen(msg), HAL_MAX_DELAY);
 
 1. Upload the code via STM32CubeIDE.
 2. Open PuTTY or any serial terminal.
-   - **Baud rate**: `115200`
+   - **Baud rate**: `38400`
    - **COM port**: Auto-detected (check Device Manager)
 3. Observe live light readings.
 4. Cover the LDR to simulate darkness → LED turns ON.
