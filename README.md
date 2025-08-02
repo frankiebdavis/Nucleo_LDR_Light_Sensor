@@ -32,6 +32,12 @@ This project reads ambient light using an analog LDR (Light Dependent Resistor) 
 - **LDR + 10kΩ** forms a voltage divider; middle node goes to **PA0 (ADC input)**.
 - **PA10** drives the LED through a current-limiting resistor.
 
+### 🖼️ Real Circuit Photo
+
+![Actual circuit with LDR and external LED](IMG_4185.jpeg)  
+*Photo of the working setup. LDR and pull-down resistor form the voltage divider. Red LED on the right is connected to PA10.*
+
+
 ## ⚙️ Configuration
 
 - **ADC1 Channel 1 (PA0)**: 12-bit resolution, polling mode  
