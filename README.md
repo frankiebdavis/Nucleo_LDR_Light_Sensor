@@ -1,18 +1,67 @@
 # 🌒 STM32 LDR Light Sensor with LED Control
 
-This project reads ambient light using an analog LDR (Light Dependent Resistor) sensor and controls an external LED based on light intensity. The system uses ADC1 on an STM32F303RE Nucleo board to continuously sample the light level and transmits the value over UART. When it's dark, the LED turns on. When it's bright, the LED turns off, with a built-in hysteresis band to prevent flickering.
+This project uses an **LDR (Light Dependent Resistor)** to measure ambient light with the STM32F303RE Nucleo board and automatically toggles an LED based on brightness. The ADC continuously samples the light level, UART prints readings to a terminal, and hysteresis logic prevents flickering at threshold values.
+
+---
+
+## ❓ Problem
+
+How can an STM32 microcontroller automatically **control an LED based on room brightness**, while avoiding rapid flicker when the light level hovers near a threshold?
+
+---
+
+## 🔨 Method
+
+- **Analog Input (PA0):** LDR + resistor form a voltage divider; ADC1 reads the light intensity.  
+- **Digital Output (PA10):** Drives an LED through a current-limiting resistor.  
+- **Threshold Logic with Hysteresis:**  
+  - LED turns **ON** if `lux < 600`  
+  - LED turns **OFF** if `lux > 1000`  
+  - Between 600–1000, LED holds previous state (prevents flicker).  
+- **UART2 Transmission:** Prints live light readings and LED state every 250 ms.  
+
+Key code excerpt:  
+HAL_ADC_Start(&hadc1);  
+lux = HAL_ADC_GetValue(&hadc1);  
+if (!led_on && lux < 600) { LED ON }  
+else if (led_on && lux > 1000) { LED OFF }  
+sprintf(msg, "Light: %hu | LED: %s\r\n", lux, led_on ? "ON" : "OFF");  
+
+---
+
+## ✅ Result
+
+Sample UART output as lighting conditions change:  
+
+```c
+Light: 512 | LED: ON
+Light: 580 | LED: ON
+Light: 1203 | LED: OFF
+Light: 1187 | LED: OFF
+```
+
+
+- Covering the LDR simulates darkness → LED turns **ON**.  
+- Bright light or flashlight → LED turns **OFF**.  
+- Hysteresis ensures the LED doesn’t flicker around the threshold.  
+
+🎥 Demo Reference: [Video Tutorial](https://youtube.com/shorts/2mi29EBLYoI?feature=share)  
+
+[![Watch the tutorial](https://img.youtube.com/vi/2mi29EBLYoI/hqdefault.jpg)](https://youtube.com/shorts/2mi29EBLYoI?feature=share)
+
+---
 
 ## 🔧 Hardware
 
 - STM32F303RE Nucleo board  
 - Breadboard  
 - LDR sensor  
-- 10kΩ pull-down resistor 
-- LED 
+- 10kΩ resistor (pull-down for LDR divider)  
+- LED  
 - 220Ω resistor (LED current limit)  
-- Jumper wires
+- Jumper wires  
 
-### Circuit:
+### Circuit
 
 ```
            3.3V
@@ -29,73 +78,25 @@ This project reads ambient light using an analog LDR (Light Dependent Resistor) 
                       LED
 ```
 
-- **LDR + 10kΩ** forms a voltage divider; middle node goes to **PA0 (ADC input)**.
-- **PA10** drives the LED through a current-limiting resistor.
+---
 
-- ### 🎥 Video Tutorial Reference
+## 💻 Testing
 
-[![Watch the tutorial](https://img.youtube.com/vi/2mi29EBLYoI/hqdefault.jpg)](https://youtube.com/shorts/2mi29EBLYoI?feature=share)
+1. Upload the program using **STM32CubeIDE**.  
+2. Open PuTTY (or any serial terminal).  
+   - Baud rate: **38400**  
+   - COM port: check Device Manager.  
+3. Observe live UART output.  
+4. Cover the LDR → LED turns **ON**.  
+5. Shine light → LED turns **OFF**.  
 
-## 📟 Behavior
+---
 
-The ADC samples ambient light intensity from the LDR circuit. UART prints the light level every 250 ms. The LED turns on in darkness and off in bright light using a hysteresis band:
+## 🧠 Takeaways
 
-| Condition                  | Action           |
-|---------------------------|------------------|
-| Light < 600               | LED turns ON     |
-| Light > 1000              | LED turns OFF    |
-| 600 ≤ Light ≤ 1000        | LED holds state  |
-
-This avoids flickering when the light level hovers near a threshold.
-
-### Sample Serial Output:
-```
-Light: 512 | LED: ON
-Light: 580 | LED: ON
-Light: 1203 | LED: OFF
-Light: 982 | LED: OFF
-```
-
-## 🧠 Code Highlights
-
-```c
-// Read light intensity from ADC1 (PA0)
-HAL_ADC_Start(&hadc1);
-HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-lux = HAL_ADC_GetValue(&hadc1);
-
-// LED logic with hysteresis
-if (!led_on && lux < 600)
-{
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET);  // Turn LED ON
-    led_on = 1;
-}
-else if (led_on && lux > 1000)
-{
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_RESET); // Turn LED OFF
-    led_on = 0;
-}
-
-// Transmit status via UART2
-sprintf(msg, "Light: %hu | LED: %s\r\n", lux, led_on ? "ON" : "OFF");
-HAL_UART_Transmit(&huart2, (uint8_t *)msg, strlen(msg), HAL_MAX_DELAY);
-```
-
-## ✅ Testing
-
-1. Upload the code via STM32CubeIDE.
-2. Open PuTTY or any serial terminal.
-   - **Baud rate**: `38400`
-   - **COM port**: Auto-detected (check Device Manager)
-3. Observe live light readings.
-4. Cover the LDR to simulate darkness → LED turns ON.
-5. Shine a flashlight or room light → LED turns OFF.
-
-## 🧠 Skills Demonstrated
-
-- STM32 ADC configuration
-- UART communicationt
-- Analog circuit design 
-- GPIO control
+- Implemented **ADC sampling** with STM32 HAL.  
+- Applied **hysteresis logic** to eliminate flicker.  
+- Used **UART debugging** for live feedback.  
+- Combined **analog sensing + GPIO control** for a practical embedded application.  
 
 ---
