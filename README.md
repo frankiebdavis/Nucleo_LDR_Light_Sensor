@@ -17,10 +17,11 @@ How can an STM32 microcontroller automatically **control an LED based on room br
 - **Threshold Logic with Hysteresis:**  
   - LED turns **ON** if `lux < 600`  
   - LED turns **OFF** if `lux > 1000`  
-  - Between 600–1000, LED holds previous state (prevents flicker).  
+  - Between 600–1000, LED **holds previous state** (prevents flicker).  
 - **UART2 Transmission:** Prints live light readings and LED state every 250 ms.  
 
 Key code excerpt:  
+
 HAL_ADC_Start(&hadc1);  
 lux = HAL_ADC_GetValue(&hadc1);  
 if (!led_on && lux < 600) { LED ON }  
