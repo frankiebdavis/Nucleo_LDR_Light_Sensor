@@ -21,12 +21,13 @@ How can an STM32 microcontroller automatically **control an LED based on room br
 - **UART2 Transmission:** Prints live light readings and LED state every 250 ms.  
 
 Key code excerpt:  
-
+```c
 HAL_ADC_Start(&hadc1);  
 lux = HAL_ADC_GetValue(&hadc1);  
 if (!led_on && lux < 600) { LED ON }  
 else if (led_on && lux > 1000) { LED OFF }  
 sprintf(msg, "Light: %hu | LED: %s\r\n", lux, led_on ? "ON" : "OFF");  
+```
 
 ---
 
