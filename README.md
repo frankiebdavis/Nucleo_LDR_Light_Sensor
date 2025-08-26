@@ -1,16 +1,16 @@
-# 🌒 STM32 LDR Light Sensor with LED Control
+# STM32 LDR Light Sensor with LED Control
 
 This project uses an **LDR (Light Dependent Resistor)** to measure ambient light with the STM32F303RE Nucleo board and automatically toggles an LED based on brightness. The ADC continuously samples the light level, UART prints readings to a terminal, and hysteresis logic prevents flickering at threshold values.
 
 ---
 
-## ❓ Problem
+## Problem
 
 How can an STM32 microcontroller automatically **control an LED based on room brightness**, while avoiding rapid flicker when the light level hovers near a threshold?
 
 ---
 
-## 🔨 Method
+## Method
 
 - **Analog Input (PA0):** LDR + resistor form a voltage divider; ADC1 reads the light intensity.  
 - **Digital Output (PA10):** Drives an LED through a current-limiting resistor.  
@@ -31,7 +31,7 @@ sprintf(msg, "Light: %hu | LED: %s\r\n", lux, led_on ? "ON" : "OFF");
 
 ---
 
-## ✅ Result
+## Result
 
 Sample UART output as lighting conditions change:  
 
