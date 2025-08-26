@@ -47,13 +47,13 @@ Light: 1187 | LED: OFF
 - Bright light or flashlight → LED turns **OFF**.  
 - Hysteresis ensures the LED doesn’t flicker around the threshold.  
 
-🎥 Demo Reference: [Video Tutorial](https://youtube.com/shorts/2mi29EBLYoI?feature=share)  
+Watch the demo: 
 
 [![Watch the tutorial](https://img.youtube.com/vi/2mi29EBLYoI/hqdefault.jpg)](https://youtube.com/shorts/2mi29EBLYoI?feature=share)
 
 ---
 
-## 🔧 Hardware
+## Hardware
 
 - STM32F303RE Nucleo board  
 - Breadboard  
@@ -82,7 +82,7 @@ Light: 1187 | LED: OFF
 
 ---
 
-## 💻 Testing
+## Testing
 
 1. Upload the program using **STM32CubeIDE**.  
 2. Open PuTTY (or any serial terminal).  
@@ -94,7 +94,7 @@ Light: 1187 | LED: OFF
 
 ---
 
-## 🧠 Takeaways
+## Takeaways
 
 - Implemented **ADC sampling** with STM32 HAL.  
 - Applied **hysteresis logic** to eliminate flicker.  
