@@ -37,7 +37,7 @@ Sample UART output as lighting conditions change:
 
 ```c
 Light: 512 | LED: ON
-Light: 580 | LED: ON
+Light: 670 | LED: ON
 Light: 1203 | LED: OFF
 Light: 1187 | LED: OFF
 ```
